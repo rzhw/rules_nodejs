@@ -86,7 +86,7 @@ function resolveRunfiles(...pathSegments) {
   if (runfilesManifest) {
     // Join on forward slash, because even on Windows the runfiles_manifest
     // file is written with forward slash.
-    const runfilesEntry = pathSegments.filter(s => !!s).join('/');
+    const runfilesEntry = path.join(...pathSegments.filter(s => !!s)).replace(/\\/g, '/');
     // Add .js as a workaround for https://github.com/bazelbuild/rules_nodejs/issues/25
     return runfilesManifest[runfilesEntry] || runfilesManifest[runfilesEntry + '.js'];
   } else {
@@ -101,6 +101,7 @@ module.constructor._resolveFilename =
   var resolveLocations = [
     request,
     resolveRunfiles(request),
+    resolveRunfiles('TEMPLATED_workspace_name', 'TEMPLATED_label_package', request),
     resolveRunfiles(
       'TEMPLATED_workspace_name', 'TEMPLATED_label_package',
       'node_modules', request),
