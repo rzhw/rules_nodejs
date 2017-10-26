@@ -53,7 +53,7 @@ def _write_loader_script(ctx):
           "TEMPLATED_module_roots": "\n  " + ",\n  ".join(module_mappings),
           "TEMPLATED_bootstrap": "\n  " + ",\n  ".join(
               ["\"" + d + "\"" for d in ctx.attr.bootstrap]),
-          "TEMPLATED_entry_point": ctx.attr.entry_point,
+          "TEMPLATED_entry_point": expand_location_into_runfiles(ctx, ctx.attr.entry_point),
           "TEMPLATED_label_package": ctx.attr.node_modules.label.package,
           # There are two workspaces in general:
           # A) The user's workspace is the one where the bazel command is run

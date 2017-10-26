@@ -3,3 +3,7 @@ function increment(n) {
 }
 
 exports.increment = increment;
+
+if (require.main === module) {
+  console.log(increment(1));
+}

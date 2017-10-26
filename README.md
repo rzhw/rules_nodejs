@@ -152,7 +152,7 @@ nodejs_binary(
         "@//:node_modules",
         "main.js",
     ],
-    entry_point = "workspace_name/main.js",
+    entry_point = "$(location :main.js)",
     args = ["--node_options=--expose-gc"],
 )
 ```
